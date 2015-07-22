@@ -73,43 +73,25 @@ public class CmdSendmoney extends BConomyCommand implements CommandExecutor {
 		}
 		
 		String formattedBal = Holdings.format(amount);
+			
+		OfflinePlayer reciever = Bukkit.getOfflinePlayer(args[0]);
 		
-		if(args[0].equalsIgnoreCase("all")) {
+		if(!reciever.hasPlayedBefore() || !AccountManager.hasAccount(reciever.getUniqueId().toString(), "default")) {
 			
-			for(Player reciever : Bukkit.getOnlinePlayers()) {
-				
-				if(reciever.getUniqueId().equals(payer.getUniqueId())) continue;
-				
-				new Account(reciever.getUniqueId().toString(), "default", plugin).getHoldings().add(amount);
-				
-				reciever.sendMessage(Messages.format("&aYou have recieved &e" + formattedBal + " &afrom " + payer.getDisplayName()));
-				
-			}
+			sender.sendMessage(tl("accountNotExists"));
 			
-			payer.sendMessage(Messages.format("&aYou have payed all players &e" + formattedBal));
+			return true;
 			
-		} else {
-			
-			OfflinePlayer reciever = Bukkit.getOfflinePlayer(args[0]);
-			
-			if(!reciever.hasPlayedBefore() || !AccountManager.hasAccount(reciever.getUniqueId().toString(), "default")) {
-				
-				sender.sendMessage(tl("accountNotExists"));
-				
-				return true;
-				
-			}
+		}
+	
+		new Account(reciever.getUniqueId().toString(), "default", plugin).getHoldings().add(amount);
 		
-			new Account(reciever.getUniqueId().toString(), "default", plugin).getHoldings().add(amount);
-			
-			payer.sendMessage(Messages.format("&aYou have sent &e" + formattedBal + " &ato " + reciever.getName()));
-			
-			if(reciever.isOnline()) {
-				
-				reciever.getPlayer().sendMessage(Messages.format("&aYou have recieved &e" + formattedBal + " &afrom " + payer.getDisplayName()));
-				
-			}
+		payer.sendMessage(Messages.format("&aYou have sent &e" + formattedBal + " &ato " + reciever.getName()));
 		
+		if(reciever.isOnline()) {
+			
+			reciever.getPlayer().sendMessage(Messages.format("&aYou have recieved &e" + formattedBal + " &afrom " + payer.getDisplayName()));
+	
 		}
 		//
 		
