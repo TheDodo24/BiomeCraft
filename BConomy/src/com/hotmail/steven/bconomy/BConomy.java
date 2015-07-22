@@ -9,6 +9,7 @@ import com.hotmail.steven.bconomy.Settings.Nodes;
 import com.hotmail.steven.bconomy.command.CmdBconomy;
 import com.hotmail.steven.bconomy.command.CmdGivemoney;
 import com.hotmail.steven.bconomy.command.CmdMoney;
+import com.hotmail.steven.bconomy.command.CmdSendallmoney;
 import com.hotmail.steven.bconomy.command.CmdSendmoney;
 import com.hotmail.steven.bconomy.command.CmdSetmoney;
 import com.hotmail.steven.bconomy.command.CmdTakemoney;
@@ -46,6 +47,8 @@ public class BConomy extends JavaPlugin {
 		this.getCommand("topmoney").setExecutor(new CmdTopmoney(this));
 		
 		this.getCommand("sendmoney").setExecutor(new CmdSendmoney(this));
+		
+		this.getCommand("sendallmoney").setExecutor(new CmdSendallmoney(this));
 		
 		this.getCommand("bconomy").setExecutor(new CmdBconomy(this));
 		
