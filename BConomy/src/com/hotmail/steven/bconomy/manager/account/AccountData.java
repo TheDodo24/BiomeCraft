@@ -14,8 +14,8 @@ import org.bukkit.entity.Player;
 
 import com.hotmail.steven.bconomy.BConomy;
 import com.hotmail.steven.bconomy.Settings.Nodes;
-import com.hotmail.steven.storage.Database;
-import com.hotmail.steven.storage.Sqlite;
+import com.hotmail.steven.bconomy.storage.Database;
+import com.hotmail.steven.bconomy.storage.Sqlite;
 
 public class AccountData {
 
@@ -25,25 +25,8 @@ public class AccountData {
 	private static BConomy plugin;
 	
 	/**
-	 * In the case of mysql, this is the database url
+	 * Represents the database instance
 	 */
-	private static String dbUrl;
-	
-	/**
-	 * The database connection
-	 */
-	private static Connection con;
-	
-	/**
-	 * The database statement
-	 */
-	private static Statement stmt;
-	
-	/**
-	 * Whether or not to use sql database
-	 */
-	private static boolean useSQL;
-	
 	private static Database db;
 	
 	/**
@@ -54,8 +37,6 @@ public class AccountData {
 	public AccountData(BConomy plugin) {
 		
 		AccountData.plugin = plugin;
-		
-		useSQL = Nodes.DATABASEMYSQL.getBoolean();
 		
 		if(Nodes.DATABASEMYSQL.getBoolean()) {
 			
